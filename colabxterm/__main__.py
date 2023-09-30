@@ -1,6 +1,5 @@
 import colabxterm
 import argparse
-import colabxterm
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='python -m colabxterm')

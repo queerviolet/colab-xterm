@@ -74,36 +74,26 @@ def _xterm_magic(args_string):
             return s.connect_ex(('localhost', port)) == 0
 
     parsed_args = shlex.split(args_string, comments=True, posix=True)
-    height = 800
-    port = 10000
-
-    # Setup parameter from parsed_args to support the following format.
-    # %xterm height=300 port=10001
-    for parameter in parsed_args:
-        kv_pair:list[str] = str(parameter).split('=')
-        if len(kv_pair) == 2:
-            k = kv_pair[0]
-            v = kv_pair[1]
-            if v.isdigit():
-                if k == "height":
-                    height = int(v)
-                elif k == "port":
-                    port = int(v)
-    # Clean parsed_args as an empty list to avoid the disability of the magic line command.
-    parsed_args=[]
+    parser = argparse.ArgumentParser(prog='python -m colabxterm')
+    parser.add_argument("-p", "--port", type=int,
+                        help="port number", default=10000)
+    parser.add_argument("-h", "--height", type=int,
+                        help="terminal height", default=800)
+    parser.add_argument("command", help="Commands to run", nargs='*')
+    args = parser.parse_args()
 
     while True:
         if not is_port_in_use(port):
             break
         port = port+1
 
-    manager.start(parsed_args, port)
-    fn = {
+    manager.start(args.command, args.port)
+    display_fn = {
         _CONTEXT_COLAB: _display_colab,
         _CONTEXT_IPYTHON: _display_ipython,
         _CONTEXT_NONE: _display_cli,
     }[_get_context()]
-    return fn(port=port, height=height)
+    return display_fn(port=args.port, height=args.height)
 
 
 def _display_colab(port, height):
