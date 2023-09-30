@@ -78,7 +78,7 @@ def _xterm_magic(args_string):
     parser = argparse.ArgumentParser(prog='python -m colabxterm')
     parser.add_argument("-p", "--port", type=int,
                         help="port number", default=10000)
-    parser.add_argument("-h", "--height", type=int,
+    parser.add_argument("--height", type=int,
                         help="terminal height", default=800)
     parser.add_argument("command", help="Commands to run", nargs='*')
     args = parser.parse_args()
