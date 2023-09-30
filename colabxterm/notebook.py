@@ -88,6 +88,8 @@ def _xterm_magic(args_string):
         port = port+1
 
     manager.start(args.command, args.port)
+    print_or_update(f'Args: {args}')
+    
     display_fn = {
         _CONTEXT_COLAB: _display_colab,
         _CONTEXT_IPYTHON: _display_ipython,
