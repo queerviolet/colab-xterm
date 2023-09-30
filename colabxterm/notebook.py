@@ -82,7 +82,7 @@ def _xterm_magic(args_string):
     parser.add_argument("--height", type=int,
                         help="terminal height", default=800)
     parser.add_argument("command", help="Commands to run", nargs='*')
-    args = parser.parse_args()
+    args = parser.parse_args(parsed_args)
     print(args)
     print(args.command)
 
