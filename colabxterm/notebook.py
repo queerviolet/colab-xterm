@@ -75,6 +75,7 @@ def _xterm_magic(args_string):
             return s.connect_ex(('localhost', port)) == 0
 
     parsed_args = shlex.split(args_string, comments=True, posix=True)
+    print(parsed_args)
     parser = argparse.ArgumentParser(prog='python -m colabxterm')
     parser.add_argument("-p", "--port", type=int,
                         help="port number", default=10000)
