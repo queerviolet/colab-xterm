@@ -86,12 +86,13 @@ def _xterm_magic(args_string):
     print(args)
     print(args.command)
 
+    port = args.port
     while True:
         if not is_port_in_use(port):
             break
-        port = port+1
+        port += 1
 
-    manager.start(args.command, args.port)
+    manager.start(args.command, port)
     print_or_update(f'Args: {args}')
 
     display_fn = {
@@ -99,7 +100,7 @@ def _xterm_magic(args_string):
         _CONTEXT_IPYTHON: _display_ipython,
         _CONTEXT_NONE: _display_cli,
     }[_get_context()]
-    return display_fn(port=args.port, height=args.height)
+    return display_fn(port=port, height=args.height)
 
 
 def _display_colab(port, height):
