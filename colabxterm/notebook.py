@@ -75,7 +75,6 @@ def _xterm_magic(args_string):
             return s.connect_ex(('localhost', port)) == 0
 
     parsed_args = shlex.split(args_string, comments=True, posix=True)
-    print(parsed_args)
     parser = argparse.ArgumentParser(prog='python -m colabxterm')
     parser.add_argument("-p", "--port", type=int,
                         help="port number", default=10000)
@@ -83,8 +82,6 @@ def _xterm_magic(args_string):
                         help="terminal height", default=800)
     parser.add_argument("command", help="Commands to run", nargs='*')
     args = parser.parse_args(parsed_args)
-    print(args)
-    print(args.command)
 
     port = args.port
     while True:
@@ -93,7 +90,6 @@ def _xterm_magic(args_string):
         port += 1
 
     manager.start(args.command, port)
-    print_or_update(f'Args: {args}')
 
     display_fn = {
         _CONTEXT_COLAB: _display_colab,
