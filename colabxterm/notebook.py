@@ -81,6 +81,8 @@ def _xterm_magic(args_string):
                         help="terminal height", default=800)
     parser.add_argument("command", help="Commands to run", nargs='*')
     args = parser.parse_args()
+    print(args)
+    print(args.command)
 
     while True:
         if not is_port_in_use(port):
@@ -89,7 +91,7 @@ def _xterm_magic(args_string):
 
     manager.start(args.command, args.port)
     print_or_update(f'Args: {args}')
-    
+
     display_fn = {
         _CONTEXT_COLAB: _display_colab,
         _CONTEXT_IPYTHON: _display_ipython,
