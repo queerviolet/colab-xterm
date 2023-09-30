@@ -2,6 +2,7 @@ import html
 import json
 import random
 import shlex
+import argparse
 
 from colabxterm import manager
 
